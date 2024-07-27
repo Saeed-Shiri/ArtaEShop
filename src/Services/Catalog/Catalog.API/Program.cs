@@ -1,3 +1,4 @@
+using Catalog.Application.Mappers;
 using Catalog.Application.Queries.GetAllBrands;
 using Catalog.Core.Repositories;
 using Catalog.Infrastructure.Data;
@@ -12,7 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(typeof(ProductMappingProfile).Assembly);
 builder.Services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblies(typeof(GetAllBrandsHandler).Assembly));
 
 builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection(nameof(DatabaseSettings)));
