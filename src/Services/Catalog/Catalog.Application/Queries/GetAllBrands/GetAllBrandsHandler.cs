@@ -20,7 +20,7 @@ public class GetAllBrandsHandler : IRequestHandler<GetAllBrandsQuery, IList<Bran
     {
         var brandList = await _brandReposritory
             .GetAllBrands();
-        var response = _mapper.Map<IList<ProductBrand>,IList<BrandResponse>>(brandList.ToList());
+        var response = _mapper.Map<IList<BrandResponse>>(brandList);
         return response;
     }
 }
