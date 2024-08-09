@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Catalog.Application.Queries.GetAllTypes;
-public class GetAllTypesQuery : IRequest<IList<TypeResponse>>
+namespace Catalog.Application.Queries.GetAllProducts;
+public class GetAllProductsQuery : IRequest<IList<ProductResponse>>
 {
 }

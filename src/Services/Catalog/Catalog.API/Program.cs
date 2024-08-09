@@ -1,38 +1,37 @@
-using Catalog.Application.Mappers;
-using Catalog.Application.Queries.GetAllBrands;
-using Catalog.Core.Repositories;
+using Catalog.Infrastructure;
+using Catalog.Application;
+using Catalog.API;
 using Catalog.Infrastructure.Data;
-using Catalog.Infrastructure.Repositories;
-using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using HealthChecks.UI.Client;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
-builder.Services.AddAutoMapper(typeof(ProductMappingProfile).Assembly);
-builder.Services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblies(typeof(GetAllBrandsHandler).Assembly));
-
-builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection(nameof(DatabaseSettings)));
-
-builder.Services.AddScoped<ICatalogContext, CatalogContext>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IBrandReposritory, ProductRepository>();
-builder.Services.AddScoped<ITypeRepository, ProductRepository>();
+builder.Services
+    .AddApiServices(builder.Configuration)
+    .AddApplicationServices(builder.Configuration)
+    .AddInfrastructureServices(builder.Configuration);
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
+
+app.UseHealthChecks("/health", new HealthCheckOptions()
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,   
+});
 
 app.MapControllers();
 

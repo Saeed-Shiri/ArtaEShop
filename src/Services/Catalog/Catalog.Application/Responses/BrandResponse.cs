@@ -1,4 +1,4 @@
-﻿namespace Catalog.Application.Queries.GetAllBrands;
+﻿namespace Catalog.Application.Responses;
 
 public class BrandResponse
 {

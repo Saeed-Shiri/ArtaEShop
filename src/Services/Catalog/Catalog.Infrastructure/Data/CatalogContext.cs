@@ -1,5 +1,4 @@
 ﻿using Catalog.Core.Entities;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -11,14 +10,14 @@ public class CatalogContext : ICatalogContext
     public IMongoCollection<ProductBrand> Brands { get; }
     public IMongoCollection<ProductType> Types { get; }
 
-    public CatalogContext(IOptions<DatabaseSettings> configuration)
+    public CatalogContext(IOptionsMonitor<DatabaseSettings> options)
     {
-        var client = new MongoClient(configuration.Value.ConnectionString);
-        var database = client.GetDatabase(configuration.Value.DatabaseName);
+        var client = new MongoClient(options.CurrentValue.ConnectionString);
+        var database = client.GetDatabase(options.CurrentValue.DatabaseName);
         
-        Products = database.GetCollection<Product>(configuration.Value.CollectionName);
-        Brands = database.GetCollection<ProductBrand>(configuration.Value.BrandsCollection);
-        Types = database.GetCollection<ProductType>(configuration.Value.TypesCollection);
+        Products = database.GetCollection<Product>(options.CurrentValue.CollectionName);
+        Brands = database.GetCollection<ProductBrand>(options.CurrentValue.BrandsCollection);
+        Types = database.GetCollection<ProductType>(options.CurrentValue.TypesCollection);
                
         BrandContextSeed.SeedData(Brands);
         TypeContextSeed.SeedData(Types);
