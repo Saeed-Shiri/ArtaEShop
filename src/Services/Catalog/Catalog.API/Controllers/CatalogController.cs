@@ -41,9 +41,9 @@ namespace Catalog.API.Controllers
 
         [HttpGet("GetAllProducts")]
         [ProducesResponseType(typeof(IList<ProductResponse>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAllProducts()
+        public async Task<IActionResult> GetAllProducts([FromQuery] GetAllProductsQuery request)
         {
-            var response = await _mediator.Send(new GetAllProductsQuery());
+            var response = await _mediator.Send(request);
             return Ok(response);
         }
 

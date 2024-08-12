@@ -1,6 +1,8 @@
 ﻿using Catalog.Core.Entities;
 using Catalog.Core.Repositories;
+using Catalog.Core.Specs;
 using Catalog.Infrastructure.Data;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Catalog.Infrastructure.Repositories;
@@ -22,12 +24,47 @@ public class ProductRepository : IProductRepository, IBrandReposritory, ITypeRep
             .FirstOrDefaultAsync();
     }
 
-    public async Task<IEnumerable<Product>> GetProducts()
+    public async Task<Pagination<Product>> GetProducts(CatalogSpecParams catalogSpecParams)
     {
-        return await _context
+        var builder = Builders<Product>.Filter;
+        var filter = builder.Empty;
+        var sort = Builders<Product>.Sort;
+        if(!string.IsNullOrEmpty(catalogSpecParams.Search))
+        {
+            var searchFilter = builder.Regex(x => x.Name, new BsonRegularExpression(catalogSpecParams.Search));
+            filter &= searchFilter;
+        }
+        if (!string.IsNullOrEmpty(catalogSpecParams.BrandId))
+        {
+            var brandFilter = builder.Regex(x => x.Brands.Id, new BsonRegularExpression(catalogSpecParams.BrandId));
+            filter &= brandFilter;
+        }
+        if (!string.IsNullOrEmpty(catalogSpecParams.TypeId))
+        {
+            var typeFilter = builder.Regex(x => x.Types.Id, new BsonRegularExpression(catalogSpecParams.TypeId));
+            filter &= typeFilter;
+        }
+
+        var sortField = catalogSpecParams.Sort switch
+        {
+            "priceAsc" => sort.Ascending("Price"),
+            "priceDesc" => sort.Descending("Price"),
+            _ => sort.Ascending("Name")
+        };
+        return new Pagination<Product>()
+        {
+            PageSize = catalogSpecParams.PageSize,
+            PageIndex = catalogSpecParams.PageIndex,
+            Data = await _context
             .Products
-            .Find(x => true)
-            .ToListAsync();
+            .Find(filter)
+            .Sort(sortField)
+            .Skip(catalogSpecParams.PageSize * (catalogSpecParams.PageIndex - 1))
+            .Limit(catalogSpecParams.PageSize)
+            .ToListAsync(),
+            Count = await _context.Products.CountDocumentsAsync(x => true)
+        };
+
     }
 
     public async Task<IEnumerable<Product>> GetProductsByName(string name)
@@ -86,4 +123,5 @@ public class ProductRepository : IProductRepository, IBrandReposritory, ITypeRep
             .Find(x => true)
             .ToListAsync();
     }
+
 }
