@@ -15,12 +15,13 @@ services:
     container_name: catalog.api
     environment:
         - ASPNETCORE_ENVIRONMENT=Development
-        - "ConnectionString__DatabaseName=mongodb://catalogdb:27017?readPreference=primary&ssl=false"
-        - "ConnectionString__DatabaseName=ProductsDb"
-        - "ConnectionString__CollectionName=Products"
-        - "ConnectionString__BrandsCollection=Brands"
-        - "ConnectionString__TypesCollection=Types"
+        - "DatabaseSettings__ConnectionString=mongodb://catalogdb:27017"
+        - "DatabaseSettings__DatabaseName=ProductsDb"
+        - "DatabaseSettings__CollectionName=Products"
+        - "DatabaseSettings__BrandsCollection=Brands"
+        - "DatabaseSettings__TypesCollection=Types"
+        - "ASPNETCORE_HTTP_PORTS=80" 
     depends_on:
         - catalogdb
     ports:
-        - "7500:80"
+        - "9000:80"
