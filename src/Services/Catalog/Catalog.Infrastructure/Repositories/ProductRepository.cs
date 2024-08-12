@@ -36,12 +36,12 @@ public class ProductRepository : IProductRepository, IBrandReposritory, ITypeRep
         }
         if (!string.IsNullOrEmpty(catalogSpecParams.BrandId))
         {
-            var brandFilter = builder.Regex(x => x.Brands.Id, new BsonRegularExpression(catalogSpecParams.BrandId));
+            var brandFilter = builder.Eq(x => x.Brands.Id, catalogSpecParams.BrandId);
             filter &= brandFilter;
         }
         if (!string.IsNullOrEmpty(catalogSpecParams.TypeId))
         {
-            var typeFilter = builder.Regex(x => x.Types.Id, new BsonRegularExpression(catalogSpecParams.TypeId));
+            var typeFilter = builder.Eq(x => x.Types.Id, catalogSpecParams.TypeId);
             filter &= typeFilter;
         }
 
