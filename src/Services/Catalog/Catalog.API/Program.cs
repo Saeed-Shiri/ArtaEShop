@@ -30,6 +30,8 @@ class Program
 
         app.UseHttpsRedirection();
 
+        app.UseAuthorization();
+
         app.UseHealthChecks("/health", new HealthCheckOptions()
         {
             Predicate = _ => true,
