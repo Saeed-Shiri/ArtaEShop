@@ -6,12 +6,6 @@ using MediatR;
 
 namespace Basket.Application.Queries.GetBasketByUserName
 {
-    public class GetBasketByUseNameQuery : IRequest<ShoppingCartReponse>
-    {
-        public GetBasketByUseNameQuery(string userName)
-        {
-            UserName = userName;
-        }
-        public string UserName { get; }
-    }
+    public sealed record GetBasketByUseNameQuery(string userName) : IRequest<ShoppingCartReponse>;
+
 }

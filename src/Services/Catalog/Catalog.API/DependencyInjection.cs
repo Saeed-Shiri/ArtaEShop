@@ -4,7 +4,7 @@ using Microsoft.OpenApi.Models;
 
 namespace Catalog.API;
 
-public static class DependencyInnjection
+public static class DependencyInjection
 {
     public static IServiceCollection AddApiServices(this IServiceCollection services, IConfiguration configuration)
     {

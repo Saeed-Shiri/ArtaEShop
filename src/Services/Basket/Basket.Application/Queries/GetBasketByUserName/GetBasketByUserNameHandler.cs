@@ -19,7 +19,7 @@ namespace Basket.Application.Queries.GetBasketByUserName
         public async Task<ShoppingCartReponse> Handle(GetBasketByUseNameQuery request, CancellationToken cancellationToken)
         {
             var cart = await _repository
-                .GetBasket(request.UserName);
+                .GetBasket(request.userName);
 
             var response = BasketMapper.Mapper.Map<ShoppingCartReponse>(cart);
             return response;
