@@ -1,38 +1,27 @@
-using Discount.Application.Abstractions;
+using Discount.API.Services;
+using Discount.Application;
+using Discount.Grpc.Protos;
+using Discount.Infrastructure;
 using Discount.Infrastructure.Extensions;
-using Discount.Infrastructure.Persistence;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddSingleton<IDatabaseConnectionFactory, NpgsqlConnectionFactory>();
-builder.Services.AddSingleton<IDatabaseFactory, NpgsqlDatabaseFactory>();
+builder.Services
+    .AddApplicationServices()
+    .AddInfrastructureServices();
 
 var app = builder.Build();
 app.MigrateDatabase();
 // Configure the HTTP request pipeline.
 
-var summaries = new[]
+app.MapGrpcService<DiscountService>();
+app.MapGet("/", async context =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
+    await context.Response.WriteAsync(
+        "Communication with gRPC endpoints must be made through a gRPC client.");
 });
 
 app.Run();
 
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

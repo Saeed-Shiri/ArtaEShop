@@ -33,7 +33,6 @@ public static class MigrationManager
 
     private static void ApplyMigrations(IDatabaseFactory databaseFactory)
     {
-        databaseFactory.CreateDatabase("DiscountDb");
         databaseFactory.ApplyMigrations();
     }
 }
