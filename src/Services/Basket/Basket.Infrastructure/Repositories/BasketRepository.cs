@@ -21,7 +21,7 @@ namespace Basket.Infrastructure.Repositories
             await _cache.RemoveAsync(userName);
         }
 
-        public async Task<ShoppingCart> GetBasket(string userName)
+        public async Task<ShoppingCart?> GetBasket(string userName)
         {
             var basket = await _cache
                 .GetStringAsync(userName);

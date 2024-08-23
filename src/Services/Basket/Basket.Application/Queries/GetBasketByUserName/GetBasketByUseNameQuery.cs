@@ -1,6 +1,6 @@
 ﻿
 
-using Basket.Application.Resonses;
+using Basket.Application.Responses;
 using Basket.Core.Entities;
 using MediatR;
 

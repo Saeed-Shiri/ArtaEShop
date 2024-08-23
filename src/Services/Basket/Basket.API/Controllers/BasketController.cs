@@ -1,7 +1,7 @@
 ﻿using Basket.Application.Commands.CreateShoppingCart;
 using Basket.Application.Commands.DeleteBasketByUserName;
 using Basket.Application.Queries.GetBasketByUserName;
-using Basket.Application.Resonses;
+using Basket.Application.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;

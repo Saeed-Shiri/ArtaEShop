@@ -1,6 +1,6 @@
 version: '3.4'
 
-name: "eshopping"
+name: "artaeshop"
 
 services:
   catalogdb:
@@ -72,6 +72,7 @@ services:
     environment:
         - ASPNETCORE_ENVIRONMENT=Development
         - "CacheSettings__ConnectionString=basketdb:6379"
+        - "GrpcSettings__DiscountUrl=http://discount.api:8080"
     depends_on:
         - basketdb
     ports:

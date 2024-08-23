@@ -1,7 +1,7 @@
 ﻿
 
 using Basket.Application.Mappers;
-using Basket.Application.Resonses;
+using Basket.Application.Responses;
 using Basket.Core.Repositories;
 using MediatR;
 

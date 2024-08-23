@@ -1,5 +1,5 @@
 ﻿
-namespace Basket.Application.Resonses
+namespace Basket.Application.Responses
 {
     public class ShoppingCartItemResonse
     {

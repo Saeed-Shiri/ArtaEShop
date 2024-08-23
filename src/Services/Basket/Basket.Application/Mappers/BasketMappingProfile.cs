@@ -1,7 +1,7 @@
 ﻿
 
 using AutoMapper;
-using Basket.Application.Resonses;
+using Basket.Application.Responses;
 using Basket.Core.Entities;
 
 namespace Basket.Application.Mappers

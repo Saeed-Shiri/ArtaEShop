@@ -52,10 +52,10 @@ public class DiscountRepository : IDiscountRepository
 
         var coupon = await connetion
             .QueryFirstOrDefaultAsync<Coupon>(
-                "SELECT * FROM Coupopon WHERE ProductName = @ProductName",
+                "SELECT * FROM Coupon WHERE ProductName = @ProductName",
                 new
-                { 
-                    productName = productName
+                {
+                    ProductName = productName
                 });
 
         return coupon;
@@ -71,7 +71,7 @@ public class DiscountRepository : IDiscountRepository
             "UPDATE Coupon SET ProductName=@ProductName, Description=@Description, Amount=@Amount) WHERE Id = @Id",
             new
             {
-                ProdutName = coupon.ProductName,
+                ProductName = coupon.ProductName,
                 Description = coupon.Description,
                 Amount = coupon.Amount,
                 Id = coupon.Id

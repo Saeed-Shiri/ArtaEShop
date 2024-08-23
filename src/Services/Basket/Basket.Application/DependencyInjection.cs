@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Basket.Application.GrpcServices;
+using Discount.Grpc.Protos;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -12,6 +14,11 @@ public static class DependencyInjection
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
+        });
+        services.AddScoped<DiscountGrpcService>();
+        services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(cfg =>
+        {
+            cfg.Address = new Uri(configuration["GrpcSettings:DiscountUrl"]);
         });
         return services;
     }
