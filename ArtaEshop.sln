@@ -37,7 +37,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discount.Application", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discount.Infrastructure", "src\Services\Discount\Discount.Infrastructure\Discount.Infrastructure.csproj", "{AF1CA0E4-EC8E-4600-A08B-D7BA80CA7F9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discount.API", "src\Services\Discount\Discount.API\Discount.API.csproj", "{7E814AF8-A41A-4BD7-AD54-2A5BD7FDF9C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discount.API", "src\Services\Discount\Discount.API\Discount.API.csproj", "{7E814AF8-A41A-4BD7-AD54-2A5BD7FDF9C0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ordering", "Ordering", "{24B64532-4BC5-45B6-8C51-4A8DF8D48B38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.API", "src\Services\Ordering\Ordering.API\Ordering.API.csproj", "{D0AA7072-7593-48D7-B828-E6BC8B1430F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Core", "src\Services\Ordering\Ordering.Core\Ordering.Core.csproj", "{52A92409-A73B-407C-BC6D-3B70ED485439}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Application", "src\Services\Ordering\Ordering.Application\Ordering.Application.csproj", "{E6DF6E86-B9F8-4B56-A592-EEB83D7CCED0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Infrastructure", "src\Services\Ordering\Ordering.Infrastructure\Ordering.Infrastructure.csproj", "{6AF3F8C4-6C98-47EE-AC7D-18A1DBEFAA0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +107,22 @@ Global
 		{7E814AF8-A41A-4BD7-AD54-2A5BD7FDF9C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E814AF8-A41A-4BD7-AD54-2A5BD7FDF9C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E814AF8-A41A-4BD7-AD54-2A5BD7FDF9C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0AA7072-7593-48D7-B828-E6BC8B1430F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0AA7072-7593-48D7-B828-E6BC8B1430F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0AA7072-7593-48D7-B828-E6BC8B1430F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0AA7072-7593-48D7-B828-E6BC8B1430F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52A92409-A73B-407C-BC6D-3B70ED485439}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52A92409-A73B-407C-BC6D-3B70ED485439}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52A92409-A73B-407C-BC6D-3B70ED485439}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52A92409-A73B-407C-BC6D-3B70ED485439}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6DF6E86-B9F8-4B56-A592-EEB83D7CCED0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6DF6E86-B9F8-4B56-A592-EEB83D7CCED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6DF6E86-B9F8-4B56-A592-EEB83D7CCED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6DF6E86-B9F8-4B56-A592-EEB83D7CCED0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AF3F8C4-6C98-47EE-AC7D-18A1DBEFAA0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AF3F8C4-6C98-47EE-AC7D-18A1DBEFAA0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AF3F8C4-6C98-47EE-AC7D-18A1DBEFAA0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AF3F8C4-6C98-47EE-AC7D-18A1DBEFAA0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +144,11 @@ Global
 		{361E322E-651A-4E28-A19D-A3CE46F05DAF} = {0ADE2EB3-8310-4FEC-AFF0-2AC52321EA80}
 		{AF1CA0E4-EC8E-4600-A08B-D7BA80CA7F9E} = {0ADE2EB3-8310-4FEC-AFF0-2AC52321EA80}
 		{7E814AF8-A41A-4BD7-AD54-2A5BD7FDF9C0} = {0ADE2EB3-8310-4FEC-AFF0-2AC52321EA80}
+		{24B64532-4BC5-45B6-8C51-4A8DF8D48B38} = {38E54E89-3F33-4A3E-A8CD-13A558B34927}
+		{D0AA7072-7593-48D7-B828-E6BC8B1430F4} = {24B64532-4BC5-45B6-8C51-4A8DF8D48B38}
+		{52A92409-A73B-407C-BC6D-3B70ED485439} = {24B64532-4BC5-45B6-8C51-4A8DF8D48B38}
+		{E6DF6E86-B9F8-4B56-A592-EEB83D7CCED0} = {24B64532-4BC5-45B6-8C51-4A8DF8D48B38}
+		{6AF3F8C4-6C98-47EE-AC7D-18A1DBEFAA0A} = {24B64532-4BC5-45B6-8C51-4A8DF8D48B38}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {501DF47A-B57A-4755-A0A1-A8DCC66B8E21}
