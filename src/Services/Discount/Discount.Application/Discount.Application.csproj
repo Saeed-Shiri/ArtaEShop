@@ -7,6 +7,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Responses\**" />
+	  <EmbeddedResource Remove="Responses\**" />
+	  <None Remove="Responses\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="13.0.1" />
 		<PackageReference Include="ErrorOr" Version="2.0.1" />
 		<PackageReference Include="Grpc.AspNetCore" Version="2.65.0" />
@@ -20,10 +26,6 @@
 
 	<ItemGroup>
 		<Protobuf Include="Protos\discount.proto" GrpcServices="Server" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Responses\" />
 	</ItemGroup>
 
 </Project>
