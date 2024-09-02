@@ -24,8 +24,9 @@ public static class MigrationManager
         }
         catch (Exception e)
         {
+            loggerService.LogError(e, $"An error occured while migration db:{nameof(IDatabaseFactory)}");
             Console.WriteLine(e);
-            throw;
+            //throw;
         }
 
         return host;

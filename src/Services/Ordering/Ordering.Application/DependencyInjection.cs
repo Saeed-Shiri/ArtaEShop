@@ -3,7 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using FluentValidation;
 using MediatR;
-using Ordering.Application.Behaviours;
+using Ordering.Application.Behaviors;
+using Ordering.Application.Exceptions;
 
 namespace Ordering.Application;
 public static class DependencyInjection
@@ -15,9 +16,11 @@ public static class DependencyInjection
         {
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
         });
+        services.AddProblemDetails();
+        services.AddExceptionHandler<GlobalExceptionHandler>();
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnHandledExceptionBehaviour<,>));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnHandledExceptionBehavior<,>));
         return services;
     }
 }

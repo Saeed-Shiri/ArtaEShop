@@ -3,14 +3,14 @@ using MediatR;
 using Ordering.Application.Contracts;
 using System.Windows.Input;
 
-namespace Ordering.Application.Behaviours;
-public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+namespace Ordering.Application.Behaviors;
+public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>, IOrderCommand
     //where TResponse : IOrderResponse
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
 
-    public ValidationBehaviour(IEnumerable<IValidator<TRequest>> validators)
+    public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
     {
         _validators = validators;
     }
