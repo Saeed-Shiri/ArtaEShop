@@ -1,4 +1,5 @@
 ﻿using Basket.Application.GrpcServices;
+using MassTransit;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
 
@@ -22,6 +23,14 @@ public static class DependencyInjection
             {
                 Title = "Basket.API",
                 Version = "v1"
+            });
+        });
+
+        services.AddMassTransit(cfg =>
+        {
+            cfg.UsingRabbitMq((context, cfg) =>
+            {
+                cfg.Host(configuration["EventBusSettings:HostAddress"]);
             });
         });
 

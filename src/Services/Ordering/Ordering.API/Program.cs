@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Ordering.API;
 using Ordering.Application;
 using Ordering.Infrastructure;
+using Ordering.Infrastructure.Data;
+using Ordering.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,13 @@ builder.Services.
     AddApiServices(builder.Configuration)
     .AddApplicationServices()
     .AddInfrastructureServices(builder.Configuration);
+
+await builder.Services.MigrateDatabase<OrderContext>(async (context, services) =>
+{
+    
+    var logger = services.GetRequiredService<ILogger<OrderContextSeed>>();
+    await OrderContextSeed.SeedAsync(context, logger);
+});
 
 var app = builder.Build();
 
@@ -38,5 +47,4 @@ app.UseHealthChecksUI(delegate (Options options)
     options.AddCustomStylesheet("./HealthCheck/Custom.css");
 
 });
-
-app.Run();
+await app.RunAsync();

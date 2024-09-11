@@ -10,15 +10,15 @@ public class OrderContextSeed
     {
         if (!context.Orders.Any())
         {
-            await context.AddRangeAsync(GetOrders());
+            await context.AddRangeAsync(await GetOrders());
             await context.SaveChangesAsync();
             logger.LogInformation($"Ordering Database seeded: {nameof(OrderContext)}");
         }
     }
 
-    private static IEnumerable<Order> GetOrders()
+    private static async Task<IEnumerable<Order>> GetOrders()
     {
-        return new List<Order>()
+        return await Task.FromResult(new List<Order>()
         {
             new Order()
             {
@@ -38,6 +38,6 @@ public class OrderContextSeed
                 Cvv = "123",
                 PaymentMethod = 1,
             }
-        };
+        });
     }
 }

@@ -9,8 +9,8 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
-        services.AddScoped<IDatabaseConnectionFactory, NpgsqlConnectionFactory>();
-        services.AddScoped<IDatabaseFactory, NpgsqlDatabaseFactory>();
+        services.AddSingleton<IDatabaseConnectionFactory, NpgsqlConnectionFactory>();
+        services.AddSingleton<IDatabaseFactory, NpgsqlDatabaseFactory>();
         services.AddScoped<IDiscountRepository, DiscountRepository>();
         return services;
     }

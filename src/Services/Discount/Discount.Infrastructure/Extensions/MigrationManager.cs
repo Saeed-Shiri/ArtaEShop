@@ -9,17 +9,20 @@ using Microsoft.Extensions.Logging;
 namespace Discount.Infrastructure.Extensions;
 public static class MigrationManager
 {
+    private static readonly IDatabaseFactory databaseFactory;
+
+    public static IDatabaseFactory DatabaseFactory => databaseFactory;
+
     public static IHost MigrateDatabase(this IHost host)
     {
         using var scope = host.Services.CreateScope();
         var services = scope.ServiceProvider;
-        var databaseService = services.GetRequiredService<IDatabaseFactory>();
         var loggerService = services.GetRequiredService<ILogger<IDatabaseFactory>>();
         var configurationService = services.GetRequiredService<IConfiguration>();
         try
         {
             loggerService.LogInformation("Discount DB Migration Started");
-            ApplyMigrations(databaseService);
+            ApplyMigrations(DatabaseFactory);
             loggerService.LogInformation("Discount DB Migration Completed");
         }
         catch (Exception e)

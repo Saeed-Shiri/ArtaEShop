@@ -1,6 +1,8 @@
-﻿using FluentValidation;
+﻿
+using FluentValidation;
 using MediatR;
 using Ordering.Application.Contracts;
+using Ordering.Application.Exceptions;
 using System.Windows.Input;
 
 namespace Ordering.Application.Behaviors;
@@ -30,7 +32,7 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
 
             if(failuers.Count > 0)
             {
-                throw new ValidationException(failuers);
+                throw new AppValidationException(failuers);
             }
         }
 

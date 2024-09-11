@@ -29,7 +29,7 @@ public class GlobalExceptionHandler : IExceptionHandler
 
         var exceptionDetails = exception switch
         {
-            ValidationException => (Detail: exception.Message, StatusCode: StatusCodes.Status422UnprocessableEntity),
+            AppValidationException => (Detail: exception.Message, StatusCode: StatusCodes.Status422UnprocessableEntity),
 
             _ => (Detail: exception.Message, StatusCode: StatusCodes.Status500InternalServerError)
         };
