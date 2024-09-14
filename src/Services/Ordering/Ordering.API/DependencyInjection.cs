@@ -14,7 +14,7 @@ public static class DependencyInjection
         services.AddControllers();
         services.AddApiVersioning();
         services.AddHealthChecks()
-            .AddSqlServer(configuration.GetConnectionString("OrderingConnectoinString"), healthQuery: "select 1", name: "SQL Server", failureStatus: HealthStatus.Unhealthy, tags: new[] { "Feedback", "Database" })
+            //.AddSqlServer(configuration.GetConnectionString("OrderingConnectoinString"), healthQuery: "select 1", name: "SQL Server", failureStatus: HealthStatus.Unhealthy, tags: new[] { "Feedback", "Database" })
             .Services.AddDbContext<OrderContext>();
         services.AddHealthChecksUI(opt =>
         {

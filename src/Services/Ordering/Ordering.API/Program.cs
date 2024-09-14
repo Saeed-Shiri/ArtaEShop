@@ -9,42 +9,17 @@ using Ordering.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
-builder.Services.
-    AddApiServices(builder.Configuration)
-    .AddApplicationServices()
-    .AddInfrastructureServices(builder.Configuration);
+var app = builder
+    .ConfigureServices()
+    .ConfigurePipeline();
 
-await builder.Services.MigrateDatabase<OrderContext>(async (context, services) =>
-{
-    
-    var logger = services.GetRequiredService<ILogger<OrderContextSeed>>();
-    await OrderContextSeed.SeedAsync(context, logger);
-});
+await builder.Services
+    .MigrateDatabase<OrderContext>(async (context, services) =>
+    {
 
-var app = builder.Build();
+        var logger = services.GetRequiredService<ILogger<OrderContextSeed>>();
+        await OrderContextSeed.SeedAsync(context, logger);
+    });
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    //app.UseDeveloperExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-app.UseExceptionHandler();
-app.UseAuthorization();
-
-app.MapControllers();
-app.MapHealthChecks("/api/health", new HealthCheckOptions()
-{
-    Predicate = _ => true,
-    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-});
-app.UseHealthChecksUI(delegate (Options options)
-{
-    options.UIPath = "/healthcheck-ui";
-    options.AddCustomStylesheet("./HealthCheck/Custom.css");
-
-});
 await app.RunAsync();

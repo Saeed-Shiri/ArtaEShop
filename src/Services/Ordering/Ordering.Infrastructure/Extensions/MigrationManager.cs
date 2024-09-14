@@ -17,7 +17,7 @@ public static class MigrationManager
         await using var scope = serviceProvider.CreateAsyncScope();
 
         var logger = scope.ServiceProvider.GetRequiredService<ILogger<DbContext>>();
-        var context = scope.ServiceProvider.GetRequiredService<TContext>();
+        var context = scope.ServiceProvider.GetService<TContext>();
 
         try
         {
@@ -36,12 +36,12 @@ public static class MigrationManager
 
     private static async Task CallSeeder<TContext>(Func<TContext, IServiceProvider, Task> seeder, TContext context, IServiceProvider services) where TContext : DbContext
     {
-        var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
-        if (pendingMigrations.Any())
-        {
-            await context.Database.MigrateAsync();
-        }
-
+        //var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
+        //if (pendingMigrations.Any())
+        //{
+        //    await context.Database.MigrateAsync();
+        //}
+        await context.Database.MigrateAsync();
         await seeder(context, services);
     }
 }

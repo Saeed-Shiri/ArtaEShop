@@ -12,10 +12,13 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
+        Console.WriteLine($"Connection string => {configuration.GetConnectionString("OrderingConnectoinString")}");
         services.AddDbContext<OrderContext>(options =>
         {
-            options.UseSqlServer(configuration.GetConnectionString("OrderingConnectoinString"));
-        });
+            options.UseSqlServer(configuration.GetConnectionString("OrderingConnectoinString"))
+            .EnableSensitiveDataLogging()
+            .LogTo(Console.WriteLine);
+    });
 
         services.Scan(x => x.FromAssemblyOf<OrderContext>()
         .AddClasses(classes => classes.Where(type => type is { IsClass: true, IsPublic: true, IsAbstract: false })
