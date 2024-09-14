@@ -13,9 +13,9 @@ public static class StartupExtensions
         var services = webApplicationBuilder.Services;
         var configuration = webApplicationBuilder.Configuration;
 
-        services.AddApiServices(configuration)
-            .AddApplicationServices()
-            .AddInfrastructureServices(configuration);
+        services.AddInfrastructureServices(configuration)
+            .AddApiServices(configuration)
+            .AddApplicationServices();
 
         return webApplicationBuilder.Build();
     }

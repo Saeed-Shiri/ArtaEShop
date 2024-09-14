@@ -18,9 +18,9 @@ public class OrderController : ApiController
         _mediator = mediator;
     }
 
-    [HttpGet("{username}", Name ="GetOrdersByUsername")]
+    [HttpGet("GetOrders/{username}", Name = "GetOrdersByUsername")]
     [ProducesResponseType(typeof(IReadOnlyList<OrderResponse>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetOrderSByUsername(string username)
+    public async Task<IActionResult> GetOrdersByUsername(string username)
     {
         var query = new GetOrderListQuery(username);
 
@@ -43,7 +43,6 @@ public class OrderController : ApiController
     [HttpPut("UpdateOrder")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesDefaultResponseType]
     public async Task<IActionResult> UpdateOrder([FromBody] UpdateOrderCommand command)
     {
         await _mediator
@@ -56,7 +55,6 @@ public class OrderController : ApiController
     [HttpDelete("[action]/{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesDefaultResponseType]
     public async Task<IActionResult> DeleteOrder(int id)
     {
         var command = new DeleteOrderCommand(id);
