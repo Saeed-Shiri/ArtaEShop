@@ -101,7 +101,7 @@ services:
     container_name: ordering.api
     environment:
         - ASPNETCORE_ENVIRONMENT=Development
-        - "ConnectionStrings__OrderingConnection=Server=orderdb;Database=OrderDb;User Id=sa;Password=pa55w0rd!;"
+        - "ConnectionStrings__OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=pa55w0rd!;"
     depends_on:
         - orderdb
     ports:

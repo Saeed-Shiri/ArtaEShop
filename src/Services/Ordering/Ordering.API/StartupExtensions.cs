@@ -37,12 +37,12 @@ public static class StartupExtensions
             Predicate = _ => true,
             ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
         });
-        app.UseHealthChecksUI(options =>
-        {
-            options.UIPath = "/healthcheck-ui";
-            //options.AddCustomStylesheet("./HealthCheck/Custom.css");
+        //app.UseHealthChecksUI(options =>
+        //{
+        //    options.UIPath = "/healthcheck-ui";
+        //    //options.AddCustomStylesheet("./HealthCheck/Custom.css");
 
-        });
+        //});
 
         return app;
     }
