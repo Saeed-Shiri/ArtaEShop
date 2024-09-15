@@ -1,8 +1,6 @@
 using Basket.API;
 using Basket.Application;
 using Basket.Infrastructure;
-using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,12 +28,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
-app.UseHealthChecks("/health", new HealthCheckOptions()
-{
-    Predicate = (healthCheckRegistration) => true,
-    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
-});
 
 app.MapControllers();
 

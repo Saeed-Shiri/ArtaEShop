@@ -1,8 +1,6 @@
 using Catalog.Infrastructure;
 using Catalog.Application;
 using Catalog.API;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using HealthChecks.UI.Client;
 
 
 class Program
@@ -32,11 +30,6 @@ class Program
 
         app.UseAuthorization();
 
-        app.UseHealthChecks("/health", new HealthCheckOptions()
-        {
-            Predicate = _ => true,
-            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
-        });
 
         app.MapControllers();
 

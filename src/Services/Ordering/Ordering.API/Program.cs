@@ -1,9 +1,5 @@
-using HealthChecks.UI.Client;
-using HealthChecks.UI.Configuration;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+
 using Ordering.API;
-using Ordering.Application;
-using Ordering.Infrastructure;
 using Ordering.Infrastructure.Data;
 using Ordering.Infrastructure.Extensions;
 

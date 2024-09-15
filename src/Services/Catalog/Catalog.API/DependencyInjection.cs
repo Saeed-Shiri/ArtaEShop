@@ -1,5 +1,4 @@
 ﻿using Catalog.Infrastructure.Data;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
 
 namespace Catalog.API;
@@ -10,8 +9,6 @@ public static class DependencyInjection
     {
         services.AddControllers();
         services.AddApiVersioning();
-        services.AddHealthChecks()
-            .AddMongoDb(configuration.GetSection(nameof(DatabaseSettings))["ConnectionString"], "Catalog Mongo DB Health Check", HealthStatus.Degraded);
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddEndpointsApiExplorer();

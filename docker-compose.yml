@@ -13,6 +13,9 @@ services:
   orderdb:
     image: mcr.microsoft.com/mssql/server:2022-latest
 
+  healthcheckdb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+
   pgadmin:
     image: dpage/pgadmin4
 
@@ -42,7 +45,13 @@ services:
     build:
       context: .
       dockerfile: src/Services/Ordering/Ordering.API/Dockerfile
-  
+
+  healthcheck.app:
+    image: ${DOCKER_REGISTRY-}healthcheckapp
+    build:
+      context: .
+      dockerfile: src/Infrastructure/HealthCheck/Dockerfile
+
 volumes:
   mongo_data:
   redis_data:

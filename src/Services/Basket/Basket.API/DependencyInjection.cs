@@ -1,6 +1,4 @@
-﻿using Basket.Application.GrpcServices;
-using MassTransit;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
+﻿using MassTransit;
 using Microsoft.OpenApi.Models;
 
 namespace Basket.API;
@@ -12,8 +10,6 @@ public static class DependencyInjection
         services.AddControllers();
         services.AddApiVersioning();
 
-        services.AddHealthChecks()
-                    .AddRedis(configuration.GetValue<string>("CacheSettings:ConnectionString"), "Redis Helth", HealthStatus.Degraded);
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         
         services.AddEndpointsApiExplorer();

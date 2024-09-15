@@ -1,6 +1,4 @@
-﻿using HealthChecks.UI.Client;
-using HealthChecks.UI.Configuration;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+﻿
 using Ordering.Application;
 using Ordering.Infrastructure;
 
@@ -32,17 +30,6 @@ public static class StartupExtensions
         app.UseAuthorization();
 
         app.MapControllers();
-        app.MapHealthChecks("/api/health", new HealthCheckOptions()
-        {
-            Predicate = _ => true,
-            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-        });
-        //app.UseHealthChecksUI(options =>
-        //{
-        //    options.UIPath = "/healthcheck-ui";
-        //    //options.AddCustomStylesheet("./HealthCheck/Custom.css");
-
-        //});
 
         return app;
     }
