@@ -3,7 +3,7 @@
     "http": {
         "commandName": "Project",
         "launchBrowser": true,
-        "launchUrl": "health-ui",
+        //"launchUrl": "health-ui",
         "environmentVariables": {
             "ASPNETCORE_ENVIRONMENT": "Development"
         },

@@ -1,47 +1,80 @@
 using HealthCheck;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var configuration = builder.Configuration;
 // Add services to the container.
-Console.WriteLine(builder.Configuration.GetConnectionString("HealthCheckConnectoinString"));
+
 builder.Services.AddHealthChecks()
-            .AddSqlServer(builder.Configuration.GetSection("HealthCheksSetting")["OrderDb"], healthQuery: "select 1", name: "Orderingdb - SQL Server", failureStatus: HealthStatus.Degraded, tags: new[] { "Feedback", "Database" })
-            .AddMongoDb(builder.Configuration.GetSection("HealthCheksSetting")["CatalogDb"], "CatalogDb - Mongo", HealthStatus.Degraded)
-            .AddRedis(builder.Configuration.GetSection("HealthCheksSetting")["BasketDb"], "BasketDb - Redis", HealthStatus.Degraded)
-            .AddNpgSql(builder.Configuration.GetSection("HealthCheksSetting")["DiscountDb"], healthQuery: "select 1", name: "DiscountDb - NpgSql", failureStatus: HealthStatus.Degraded, tags: new[] { "Feedback", "Database" });
+            .AddSqlServerHealthCheck(configuration)
+            .AddMongoDbHealthCheck(configuration)
+            .AddPostgreSqlHealthCheck(configuration)
+            .AddRedisHealthCheck(configuration);
 
 builder.Services.AddHealthChecksUI(opt =>
-{
-    opt.SetEvaluationTimeInSeconds(10); //time in seconds between check    
-    opt.MaximumHistoryEntriesPerEndpoint(60); //maximum history of checks    
-    opt.SetApiMaxActiveRequests(1); //api requests concurrency    
-    opt.AddHealthCheckEndpoint("Arta EShop Services", "/health"); //map health check api    
+{ 
+    opt.AddHealthCheckEndpoint("Arta EShop Services", configuration.GetSection("HealthCheksSetting")["HealthCheckUrl"]); //map health check api    
 
-}).AddSqlServerStorage(builder.Configuration.GetConnectionString("HealthCheckConnectoinString"), null, options =>
-{
-    options.MigrationsAssembly(typeof(Program).Assembly.FullName);  // Set the assembly for migrations
-});
+})
+    .AddInMemoryStorage();
+//    .AddSqlServerStorage(builder.Configuration.GetConnectionString("HealthCheckConnectoinString"), null, options =>
+//{
+//    options.MigrationsAssembly(typeof(Program).Assembly.FullName);  // Set the assembly for migrations
+//});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-app.UseHealthChecks("/health", new HealthCheckOptions()
+
+//app.MapHealthChecks("health", new HealthCheckOptions()
+//{
+//    Predicate = _ => true,
+//    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+//});
+
+app.MapHealthChecks("/health", new HealthCheckOptions()
 {
-    Predicate = _ => true,
+    ResultStatusCodes =
+    {
+        [HealthStatus.Healthy] = StatusCodes.Status200OK,
+        [HealthStatus.Degraded] = StatusCodes.Status200OK,
+        [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable,
+    }
+});
+app.MapHealthChecks("/healthcheck", new ()
+{
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
 });
-app.UseHealthChecksUI(options =>
+app.MapHealthChecksUI(options =>
 {
-    options.UIPath = "/health-ui";  // Set the path for the UI
-    options.ApiPath = "/health-ui-api";  // API path for UI
+    options.UIPath = "/dashboard";  // Set the path for the UI
+    //options.ApiPath = "/health-ui-api";  // API path for UI
     //options.AddCustomStylesheet("./HealthCheck/Custom.css");
     options.PageTitle = "Arta Eshop Health Cheks";
 });
 
+//app.MapGet("/", async (HealthCheckService healthCheckService) =>
+//{
+//    HealthReport healthReport = await healthCheckService.CheckHealthAsync();
+//    return healthReport.Status.ToString();
+//});
+//app.MapGet("/health", async (HttpContext context, HealthCheckService healthCheckService) =>
+//{
+//    HealthReport healthReport = await healthCheckService.CheckHealthAsync();
+//    await UIResponseWriter.WriteHealthCheckUIResponse(context, healthReport);
+//});
 
-await app.ApplyMigration();
+app.MapGet("/", (HttpContext context) =>
+{
+    context.Response.Redirect("/dashboard");
+});
+
+/*this is for healthchek Ui sql server storage*/
+//await app.ApplyMigration();
 
 app.Run();

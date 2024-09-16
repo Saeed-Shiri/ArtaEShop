@@ -122,6 +122,7 @@ services:
     environment:
         - ASPNETCORE_ENVIRONMENT=Development
         - "ConnectionStrings__HealthCheckConnectoinString=Server=healthcheckdb;Database=HealthChecksDb;User Id=sa;Password=pa55w0rd!;Trusted_Connection=True;TrustServerCertificate=True;Integrated Security=False"
+        - "HealthCheksSetting__HealthCheckUrl=http://healthcheck.app:8080/healthcheck"
         - "HealthCheksSetting__OrderDb=Server=orderdb;Database=OrderDb;User Id=sa;Password=pa55w0rd!;Trusted_Connection=True;TrustServerCertificate=True;Integrated Security=False"
         - "HealthCheksSetting__CatalogDb=mongodb://catalogdb:27017"
         - "HealthCheksSetting__BasketDb=basketdb:6379"

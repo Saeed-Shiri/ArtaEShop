@@ -13,12 +13,12 @@ public static class MigrationManager
         var context = scope.ServiceProvider.GetRequiredService<HealthChecksDb>();
         var logger = scope.ServiceProvider.GetRequiredService<ILogger<HealthChecksDb>>();
 
-		try
-		{
-			
-			var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
-			if(pendingMigrations.Any())
-			{
+        try
+        {
+
+            var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
+            if (pendingMigrations.Any())
+            {
                 logger.LogInformation($"Started Db Migration: {nameof(HealthChecksDb)} at {DateTime.Now}");
 
                 await context.Database.MigrateAsync();
@@ -26,9 +26,9 @@ public static class MigrationManager
                 logger.LogInformation($"Migration Completed: {nameof(HealthChecksDb)} at {DateTime.Now}");
 
             }
-		}
-		catch (Exception e)
-		{
+        }
+        catch (Exception e)
+        {
             logger.LogError(e, $"An error occurred while migrating db: {nameof(HealthChecksDb)}");
         }
     }
