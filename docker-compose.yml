@@ -16,6 +16,9 @@ services:
   healthcheckdb:
     image: mcr.microsoft.com/mssql/server:2022-latest
 
+  rabbitmq:
+    image: rabbitmq:4.0-management
+
   pgadmin:
     image: dpage/pgadmin4
 

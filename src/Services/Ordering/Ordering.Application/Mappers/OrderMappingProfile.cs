@@ -1,6 +1,7 @@
 ﻿
 
 using AutoMapper;
+using EventBus.Messages.Events;
 using Ordering.Application.Features.Ordering.Commands.CheckoutOrder;
 using Ordering.Application.Features.Ordering.Commands.DeleteOrder;
 using Ordering.Application.Features.Ordering.Commands.UpdateOrder;
@@ -15,5 +16,6 @@ public class OrderMappingProfile : Profile
         CreateMap<OrderResponse, Order>().ReverseMap();
         CreateMap<CheckoutOrderCommand, Order>().ReverseMap();
         CreateMap<UpdateOrderCommand, Order>().ReverseMap();
+        CreateMap<CheckoutOrderCommand, BasketCheckoutEvent>().ReverseMap();
     }
 }

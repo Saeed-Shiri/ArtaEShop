@@ -1,6 +1,7 @@
 ﻿
 using Basket.Core.Repositories;
 using Basket.Infrastructure.Repositories;
+using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,6 +14,15 @@ public static class DependencyInjection
         {
             options.Configuration = configuration.GetSection("CacheSettings")["ConnectionString"];
         });
+
+        services.AddMassTransit(config =>
+        {
+            config.UsingRabbitMq((context, config) =>
+            {
+                config.Host(configuration["EventBusSettings:HostAddress"]);
+            });
+        });
+
 
         services.AddScoped<IBasketRepository, BasketRepository>();
 

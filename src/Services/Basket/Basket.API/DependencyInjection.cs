@@ -22,14 +22,6 @@ public static class DependencyInjection
             });
         });
 
-        services.AddMassTransit(cfg =>
-        {
-            cfg.UsingRabbitMq((context, cfg) =>
-            {
-                cfg.Host(configuration["EventBusSettings:HostAddress"]);
-            });
-        });
-
         return services;
     }
 }

@@ -30,6 +30,7 @@ public class OrderController : ApiController
         return Ok(response);
     }
 
+    //just for testing locally as  it will be processed in queue
     [HttpPost("CheckoutOrder") ]
     [ProducesResponseType(typeof(int) , StatusCodes.Status200OK)]
     public async Task<IActionResult> CheckoutOrder([FromBody] CheckoutOrderCommand command)
