@@ -13,8 +13,8 @@ services:
   orderdb:
     image: mcr.microsoft.com/mssql/server:2022-latest
 
-  healthcheckdb:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+  # healthcheckdb:
+  #   image: mcr.microsoft.com/mssql/server:2022-latest
 
   rabbitmq:
     image: rabbitmq:4.0-management
@@ -48,6 +48,12 @@ services:
     build:
       context: .
       dockerfile: src/Services/Ordering/Ordering.API/Dockerfile
+
+  ocelotapigw:
+    image: ${DOCKER_REGISTRY-}ocelotapigw
+    build:
+      context: .
+      dockerfile: src/ApiGateways/Ocelot.ApiGateway/Dockerfile
 
   healthcheck.app:
     image: ${DOCKER_REGISTRY-}healthcheckapp

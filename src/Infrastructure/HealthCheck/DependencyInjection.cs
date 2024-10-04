@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Diagnostics.HealthChecks;
+using RabbitMQ.Client;
 
 namespace HealthCheck;
 
@@ -25,6 +26,30 @@ public static class DependencyInjection
     public static IHealthChecksBuilder AddRedisHealthCheck(this IHealthChecksBuilder healthChecks, IConfiguration configuration)
     {
         healthChecks.AddRedis(configuration.GetSection("HealthCheksSetting")["BasketDb"], "BasketDb - Redis", HealthStatus.Degraded, tags: ["Redis", "Basket Service"]);
+        return healthChecks;
+    }
+
+    public static IHealthChecksBuilder AddRabbitMqHelthCheck(this IHealthChecksBuilder healthChecks, IConfiguration configuration, IServiceProvider serviceProvider)
+    {
+        healthChecks.AddRabbitMQ(setup =>
+        {
+            var connection = serviceProvider.GetService<IConnection>();
+            var connectionFactory = serviceProvider.GetService<IConnectionFactory>();
+            if (connection != null)
+            {
+                setup.Connection = connection;
+            }
+            else if (connectionFactory != null)
+            {
+                setup.ConnectionFactory = connectionFactory;
+            }
+            else
+            {
+                throw new ArgumentException($"Either an IConnection or IConnectionFactory must be registered with the service provider");
+            }
+        }, "Message Broker - RabbitMQ", HealthStatus.Degraded, tags: ["RabbitMq", "Message Broker"]);
+
+        //healthChecks.AddRabbitMQ(configuration["HealthCheksSetting:MessageBroker"], HealthStatus.Degraded, tags: ["RabbitMq", "Message Broker"]);
         return healthChecks;
     }
 }

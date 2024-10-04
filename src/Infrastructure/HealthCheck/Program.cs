@@ -3,16 +3,23 @@ using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using RabbitMQ.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 // Add services to the container.
 
+builder.Services.AddSingleton<IConnectionFactory>((c) =>
+{
+    return new ConnectionFactory() { Uri = new Uri(configuration["HealthCheksSetting:MessageBroker"]) };
+});
+
 builder.Services.AddHealthChecks()
             .AddSqlServerHealthCheck(configuration)
             .AddMongoDbHealthCheck(configuration)
             .AddPostgreSqlHealthCheck(configuration)
-            .AddRedisHealthCheck(configuration);
+            .AddRedisHealthCheck(configuration)
+            .AddRabbitMqHelthCheck(configuration, builder.Services.BuildServiceProvider());
 
 builder.Services.AddHealthChecksUI(opt =>
 { 
