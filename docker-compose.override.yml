@@ -152,6 +152,7 @@ services:
         - "HealthCheksSetting__BasketDb=basketdb:6379"
         - "HealthCheksSetting__DiscountDb=Server=discountdb;Port=5432;Database=DiscountDb;User Id=admin;Password=admin1234;"
         - "HealthCheksSetting__MessageBroker=amqp://guest:guest@rabbitmq:5672"
+        - "HealthCheksSetting__CatalogService=http://catalog.api:8080/api/v1/Catalog/GetAllTypes" 
     # depends_on:
     #     - healthcheckdb
     ports:

@@ -19,12 +19,12 @@ builder.Services.AddHealthChecks()
             .AddMongoDbHealthCheck(configuration)
             .AddPostgreSqlHealthCheck(configuration)
             .AddRedisHealthCheck(configuration)
-            .AddRabbitMqHelthCheck(configuration, builder.Services.BuildServiceProvider());
+            .AddRabbitMqHelthCheck(builder.Services.BuildServiceProvider())
+            .AddCatalogServiceHealthCheck(configuration);
 
 builder.Services.AddHealthChecksUI(opt =>
 { 
-    opt.AddHealthCheckEndpoint("Arta EShop Services", configuration.GetSection("HealthCheksSetting")["HealthCheckUrl"]); //map health check api    
-
+    opt.AddHealthCheckEndpoint("Arta EShop Infrastructures", configuration.GetSection("HealthCheksSetting")["HealthCheckUrl"]); //map health check api    
 })
     .AddInMemoryStorage();
 //    .AddSqlServerStorage(builder.Configuration.GetConnectionString("HealthCheckConnectoinString"), null, options =>

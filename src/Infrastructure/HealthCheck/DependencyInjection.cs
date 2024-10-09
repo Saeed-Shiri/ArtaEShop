@@ -19,6 +19,7 @@ public static class DependencyInjection
 
     public static IHealthChecksBuilder AddPostgreSqlHealthCheck(this IHealthChecksBuilder healthChecks, IConfiguration configuration)
     {
+        Console.WriteLine(configuration.GetSection("HealthCheksSetting")["DiscountDb"]);
         healthChecks.AddNpgSql(configuration.GetSection("HealthCheksSetting")["DiscountDb"], healthQuery: "select 1", name: "DiscountDb - NpgSql", failureStatus: HealthStatus.Degraded, tags: ["PostgreSQL", "Discsount Service"]);
         return healthChecks;
     }
@@ -29,7 +30,7 @@ public static class DependencyInjection
         return healthChecks;
     }
 
-    public static IHealthChecksBuilder AddRabbitMqHelthCheck(this IHealthChecksBuilder healthChecks, IConfiguration configuration, IServiceProvider serviceProvider)
+    public static IHealthChecksBuilder AddRabbitMqHelthCheck(this IHealthChecksBuilder healthChecks, IServiceProvider serviceProvider)
     {
         healthChecks.AddRabbitMQ(setup =>
         {
@@ -51,5 +52,12 @@ public static class DependencyInjection
 
         //healthChecks.AddRabbitMQ(configuration["HealthCheksSetting:MessageBroker"], HealthStatus.Degraded, tags: ["RabbitMq", "Message Broker"]);
         return healthChecks;
+    }
+
+    public static IHealthChecksBuilder AddCatalogServiceHealthCheck(this IHealthChecksBuilder healthChecks, IConfiguration configuration)
+    {
+        Console.WriteLine(configuration["HealthCheksSetting:CatalogService"]);
+        return healthChecks
+            .AddUrlGroup(new Uri(configuration["HealthCheksSetting:CatalogService"]), name: "Catalog Service", failureStatus: HealthStatus.Degraded);
     }
 }

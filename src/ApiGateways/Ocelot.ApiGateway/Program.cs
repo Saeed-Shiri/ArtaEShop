@@ -29,12 +29,11 @@ if(app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
- app.MapGet("/", async context =>
-{
-    await context.Response.WriteAsync("Hello Ocelot Gateway");
-});
+ app.MapGet("/ping", () => "pong");
 
 await app.UseOcelot();
+
+await app.RunAsync();
 
 
 
