@@ -1,19 +1,6 @@
 {
     "Routes": [
-        //Default
-        {
-            "DownstreamPathTemplate": "/",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "host.docker.internal",
-                    "Port": "9010"
-                }
-            ],
-            "UpstreamPathTemplate": "/ping",
-            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
-            "FileCacheOptions": { "TtlSeconds": 30 }
-        },
+
         //Catalog API
         {
             "DownstreamPathTemplate": "/api/v1/Catalog",

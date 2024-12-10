@@ -29,7 +29,7 @@ if(app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
- app.MapGet("/ping", () => "pong");
+ app.MapGet("/", async (context) => await context.Response.WriteAsync("Hello Ocelot!"));
 
 await app.UseOcelot();
 

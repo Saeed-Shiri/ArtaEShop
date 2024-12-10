@@ -57,7 +57,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthCheck", "src\Infrastr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{7B167E4E-9F2C-4B9F-9358-AC9F5B633CA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ocelot.ApiGateway", "src\ApiGateways\Ocelot.ApiGateway\Ocelot.ApiGateway.csproj", "{0204E95B-73F7-4FF5-BCD7-6045C06F0E1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ocelot.ApiGateway", "src\ApiGateways\Ocelot.ApiGateway\Ocelot.ApiGateway.csproj", "{0204E95B-73F7-4FF5-BCD7-6045C06F0E1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtaEshop.Identity", "src\Infrastructure\ArtaEshop.Identity\ArtaEshop.Identity.csproj", "{6B7E7AD3-B185-4410-8409-9080FC8DBF2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -145,6 +147,10 @@ Global
 		{0204E95B-73F7-4FF5-BCD7-6045C06F0E1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0204E95B-73F7-4FF5-BCD7-6045C06F0E1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0204E95B-73F7-4FF5-BCD7-6045C06F0E1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B7E7AD3-B185-4410-8409-9080FC8DBF2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B7E7AD3-B185-4410-8409-9080FC8DBF2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B7E7AD3-B185-4410-8409-9080FC8DBF2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B7E7AD3-B185-4410-8409-9080FC8DBF2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -176,6 +182,7 @@ Global
 		{CA776C7F-F3EB-41A2-AE6F-3BD296B33BEA} = {873484F7-C96D-4051-8DA1-5FA53BE1E092}
 		{7B167E4E-9F2C-4B9F-9358-AC9F5B633CA8} = {78C7E60D-7C08-4987-ABEB-009776BA6BC5}
 		{0204E95B-73F7-4FF5-BCD7-6045C06F0E1B} = {7B167E4E-9F2C-4B9F-9358-AC9F5B633CA8}
+		{6B7E7AD3-B185-4410-8409-9080FC8DBF2A} = {873484F7-C96D-4051-8DA1-5FA53BE1E092}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {501DF47A-B57A-4755-A0A1-A8DCC66B8E21}
