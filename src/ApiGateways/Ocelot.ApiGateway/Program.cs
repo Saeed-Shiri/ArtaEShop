@@ -29,7 +29,15 @@ if(app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
- app.MapGet("/", async (context) => await context.Response.WriteAsync("Hello Ocelot!"));
+app.UseRouting();
+
+#pragma warning disable ASP0014
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapGet("/", async (context) => await context.Response.WriteAsync("Hello Ocelot!"));
+});
+#pragma warning restore ASP0014
+
 
 await app.UseOcelot();
 
