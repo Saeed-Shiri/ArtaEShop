@@ -1,13 +1,12 @@
-{
+﻿{
   "profiles": {
-    "Ordering.API": {
+    "SelfHost": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:9003"
+      "applicationUrl": "https://localhost:9008"
     }
+  }
 }
