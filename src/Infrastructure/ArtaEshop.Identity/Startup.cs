@@ -6,6 +6,7 @@ using IdentityServer4;
 using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -47,6 +48,14 @@ namespace ArtaEshop.Identity
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
+
+            services.Configure<KestrelServerOptions>(options =>
+            {
+                options.ListenAnyIP(9009, listenOptions =>
+                {
+                    listenOptions.UseHttps();
+                });
+            });
 
         }
 

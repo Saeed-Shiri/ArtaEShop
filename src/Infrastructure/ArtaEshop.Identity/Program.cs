@@ -56,5 +56,6 @@ namespace ArtaEshop.Identity
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
     }
 }
